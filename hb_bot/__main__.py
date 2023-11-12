@@ -2,6 +2,7 @@ import logging
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
 from config import TELEGRAM_BOT_TOKEN
+import message_texts
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
@@ -19,8 +20,10 @@ def main():
     application = ApplicationBuilder().token(TELEGRAM_BOT_TOKEN).build()
     
     async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="I'm a bot, please talk to me!")
-
+        await context.bot.send_message(
+                chat_id=update.effective_chat.id, 
+                text=message_texts.GREETINGS)
+    
     start_handler = CommandHandler('start', start)
     application.add_handler(start_handler)
 
